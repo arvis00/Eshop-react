@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './Button.module.css'
 
-export const Button = ({ onClick, children, type }) => {
+export const Button = ({ onClick, children, type, disabled }) => {
   const styles = [classes.button]
   switch (type) {
     case 'primary':
@@ -10,12 +10,20 @@ export const Button = ({ onClick, children, type }) => {
     case 'secondary':
       styles.push(classes.blue)
       break
+    case 'danger':
+      styles.push(classes.red)
+      break
     default:
       break
   }
+  if (disabled) styles.push(classes.disabled)
   return (
     <div className={classes.buttonWrapper}>
-      <button onClick={onClick} className={styles.join(' ')}>
+      <button
+        onClick={onClick}
+        className={styles.join(' ')}
+        disabled={disabled}
+      >
         {children}
       </button>
     </div>
