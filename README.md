@@ -1,4 +1,9 @@
-Eshop demo page written in React using Redux, Router, Components
+Eshop demo page written in React using Redux, Router, Components.
+
+- you can create a new product with description, price and quantity (for admins)
+- users can add the product to a cart if there is quantity of the product.
+- users can open cart items and make a purchase.
+- users can check open pending orders
 
 ## Available Scripts
 
