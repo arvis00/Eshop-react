@@ -1,41 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import Nav from './components/Nav'
 import { Container } from './components/shared/Container/Container'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { routes } from './routes'
+import { useDispatch } from 'react-redux'
 
 function App() {
-  // Duomenims saugoti naudojamas "cart" state'as "App.js" faile
-  // 1. Čia reikia pushinti produktus kurie yra carte +++
-  // 2. Produktai cart'e turi buti sumuojami (quantity/suma) +++
-  // 3. Carte negali buti daugiau produktu nei produkto quantity +++
-  // 4. Nenaudoti localStorage +++
-  // -----------------------------------------------------------
-  // 5. Atvaizduoti produktus cart'e +++
-  // 6. Virš "CART" link'o turi būti burbuliukas indikuojantis produktų skaičių +++
-  const [cart, setCart] = useState([])
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await fetch('http://localhost:4000/products')
+      const products = await response.json()
+      dispatch({ type: 'UPLOAD_PRODUCTS', products })
+    }
+    fetchProducts()
+  }, [])
 
   return (
     <BrowserRouter>
       <Container>
-        <Nav cart={cart} />
+        <Nav />
         <main>
           <Switch>
             {routes.map((route, index) => (
               <Route
                 key={index}
                 path={route.path}
-                component={() => (
-                  <route.component cart={cart} setCart={setCart} />
-                )}
+                component={() => <route.component />}
                 exact={route.isExact}
               />
             ))}
             <Redirect from="*" to="/404" />
           </Switch>
         </main>
-        <footer>Cia yra footeri</footer>
       </Container>
     </BrowserRouter>
   )
