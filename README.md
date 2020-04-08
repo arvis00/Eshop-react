@@ -1,3 +1,8 @@
+To run the app follow the steps:
+- download the repo
+- yarn install
+- yarn start
+
 Eshop demo page written in React using Redux, Router, Components.
 
 - you can create a new product with description, price and quantity (for admins)
